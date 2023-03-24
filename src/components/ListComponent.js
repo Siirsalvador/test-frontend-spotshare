@@ -25,10 +25,7 @@ function ListComponent(props) {
         fetch('https://spot-share.herokuapp.com/query', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
-                'Access-Control-Allow-Headers' : 'Content-Type, Authorization, X-Requested-With'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ fromDate:bundle.fromDate, toDate:bundle.toDate })
         })
