@@ -25,7 +25,7 @@ function ListComponent(props) {
                             <li>Track name: <span>{item.track_name}</span></li>
                             <li>Artist: <span>{item.track_artist}</span></li>
                             <li>Album name: <span>{item.track_album_name}</span></li>
-                            <li><a href={item.track_link}>Track link</a></li>
+                            <li><a href={item.track_link}>Show in Spotify</a></li>
                         </ul>       
                     </li>
                     ))}
