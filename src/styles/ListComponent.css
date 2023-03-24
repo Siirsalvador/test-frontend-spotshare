@@ -29,4 +29,8 @@
   li span {
     font-weight: bold;
   }
+
+  div {
+    padding-bottom: 20px;
+  }
   

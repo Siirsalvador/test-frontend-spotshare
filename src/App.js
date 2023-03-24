@@ -6,11 +6,10 @@ import ListComponent from './components/ListComponent';
 
 
 function App() {
-  const [data, setData] = useState([]);
+  const [bundle, setToBundle] = useState({});
 
-  const handleDataReceived = (data) => {
-    console.log(data)
-    setData(data);
+  const handleDataReceived = (fromDate, toDate, data) => {
+    setToBundle({data:data, fromDate:fromDate, toDate:toDate})
   };
 
   return (
@@ -19,7 +18,7 @@ function App() {
       <h1>SpotShare - Beta</h1>
       <p>Enter a time range to search your play history(since - 24 Mar)</p>
       <DateInput onDataReceived={handleDataReceived}/>
-      <ListComponent data = {data} onDataReceived={handleDataReceived}/>
+      <ListComponent data = {bundle} onDataReceived={handleDataReceived}/>
     </div>
   );
 }

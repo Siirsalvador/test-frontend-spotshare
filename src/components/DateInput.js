@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../styles/DateInput.css'
 
 function DateTimeRangeInput(props) {
-  const [data, setData] = useState([]);
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
 
@@ -16,7 +15,7 @@ function DateTimeRangeInput(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('https://spot-share.herokuapp.com/query', {
+    fetch('/query', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +26,7 @@ function DateTimeRangeInput(props) {
       body: JSON.stringify({ fromDate:fromDate, toDate:toDate })
     })
       .then(response => response.json())
-      .then(data => props.onDataReceived(data))
+      .then(data => props.onDataReceived(fromDate, toDate,data))
       .catch(error => console.error(error));
   };
 
