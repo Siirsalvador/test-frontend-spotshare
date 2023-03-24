@@ -20,7 +20,8 @@ function DateTimeRangeInput(props) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'
       },
       body: JSON.stringify({ fromDate:fromDate, toDate:toDate })
     })
