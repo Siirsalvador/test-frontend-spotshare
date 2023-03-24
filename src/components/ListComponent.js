@@ -23,7 +23,7 @@ function ListComponent(props) {
       const handleClick = (event) => {
         // prevent the default behavior of the link
         event.preventDefault();
-        fetch('/query', {
+        fetch('https://spot-share.herokuapp.com/query', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
