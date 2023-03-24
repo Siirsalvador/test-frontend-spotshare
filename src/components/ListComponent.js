@@ -59,7 +59,7 @@ function ListComponent(props) {
                     </li>
                     ))}
                 </ol>
-                <span><button onClick={handleClick}>Next Page</button></span>
+                <span><button onClick={handleClick} disabled={bundle.data.length < 15}>Next Page</button></span>
                 </div>
             ) : (
                 <p>No data received yet</p>
