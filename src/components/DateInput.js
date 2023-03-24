@@ -19,7 +19,8 @@ function DateTimeRangeInput(props) {
     fetch('https://spot-share.herokuapp.com/query', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({ fromDate:fromDate, toDate:toDate })
     })
