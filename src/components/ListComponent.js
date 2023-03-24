@@ -22,10 +22,9 @@ function ListComponent(props) {
                     <li key={index}>
                         <ul>
                             <li>Played at: <span>{item.played_at}</span></li>
-                            <li>Track name: <span>{item.track_name}</span></li>
+                            <li>Track name: <span><a href={item.track_link}>{item.track_name}</a></span></li>
                             <li>Artist: <span>{item.track_artist}</span></li>
                             <li>Album name: <span>{item.track_album_name}</span></li>
-                            <li><a href={item.track_link}>Show in Spotify</a></li>
                         </ul>       
                     </li>
                     ))}
