@@ -16,8 +16,8 @@ function App() {
   return (
     <div className="App">
       <img src={logo} className="App-logo" alt="logo" />
-      <h1>SpotShare</h1>
-      <p>Enter a time range to search your play history</p>
+      <h1>SpotShare - Beta</h1>
+      <p>Enter a time range to search your play history(since - 24 Mar)</p>
       <DateInput onDataReceived={handleDataReceived}/>
       <ListComponent data = {data} onDataReceived={handleDataReceived}/>
     </div>
