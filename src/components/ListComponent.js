@@ -17,7 +17,6 @@ function ListComponent(props) {
 
     const handleDataReceived = (updatedData) => {
         setBundle(updatedData);
-        console.log(updatedData);
       };
 
       const handleClick = (event) => {
