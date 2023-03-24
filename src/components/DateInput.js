@@ -14,14 +14,9 @@ function DateTimeRangeInput(props) {
     setToDate(event.target.value);
   };
 
-  // const handleDataReceived = (data) => {
-  //   console.log(data)
-  //   setData(data);
-  // };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('/query', {
+    fetch('https://spot-share.herokuapp.com/query', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
