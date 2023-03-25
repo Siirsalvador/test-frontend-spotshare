@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <img src={logo} className="App-logo" alt="logo" />
       <h1>SpotShare - Beta</h1>
-      <p>Enter a time range to search your play history(since - 24 Mar)</p>
+      <p>Enter a time range to search Ade's Spotify play history(since - 24 Mar)</p>
       <DateInput onDataReceived={handleDataReceived}/>
       <ListComponent data = {bundle} onDataReceived={handleDataReceived}/>
     </div>
