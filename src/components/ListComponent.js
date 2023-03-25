@@ -4,17 +4,33 @@ import moment from 'moment';
 
 function ListComponent(props) {
     const [bundle, setBundle] = useState({data:[], fromDate:'', toDate:''});
+    const [isOnline, setIsOnline] = useState(navigator.onLine);
     const componentRef = useRef(null);
 
     useEffect(() => {
         setBundle(props.data);
         handleDataReceived(props.data);
-      }, [props.data]);
+    }, [props.data]);
 
-      useEffect(() => {
-        setBundle(bundle);
-        handleDataReceived(bundle);
-      }, [bundle]);
+    useEffect(() => {
+    setBundle(bundle);
+    handleDataReceived(bundle);
+    }, [bundle]);
+
+
+    useEffect(() => {
+        const handleOnlineStatusChange = () => {
+            setIsOnline(navigator.onLine);
+        };
+
+        window.addEventListener('online', handleOnlineStatusChange);
+        window.addEventListener('offline', handleOnlineStatusChange);
+
+        return () => {
+            window.removeEventListener('online', handleOnlineStatusChange);
+            window.removeEventListener('offline', handleOnlineStatusChange);
+        };
+    }, []);
 
     const handleDataReceived = (updatedData) => {
         setBundle(updatedData);
@@ -49,14 +65,14 @@ function ListComponent(props) {
                     <li key={index}>
                         <ul>
                             <li>Played at: <span>{moment(item.played_at).format("dddd, MMMM Do, h:mm a")}</span></li>
-                            <li>Track name: <span><a href={item.track_link} target="_blank" rel="noopener noreferrer">{item.track_name}</a></span></li>
+                            <li><span className='track-name'><a href={item.track_link} target="_blank" rel="noopener noreferrer">{item.track_name}</a></span></li>
                             <li>Artist: <span>{item.track_artist}</span></li>
                             <li>Album name: <span>{item.track_album_name}</span></li>
                         </ul>       
                     </li>
                     ))}
                 </ul>
-                <span><button onClick={handleClick} disabled={bundle.data.length < 15}>Next Page</button></span>
+                <span><button onClick={handleClick} disabled={bundle.data.length < 15 || !isOnline}>Next Page</button></span>
                 </div>
             ) : (
                 <p>No data received yet</p>

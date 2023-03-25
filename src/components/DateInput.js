@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/DateInput.css'
 
 function DateTimeRangeInput(props) {
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
+  const [hasInternetConnection, setHasInternetConnection] = useState(true);
 
+  useEffect(() => {
+    const handleConnectionChange = () => {
+      setHasInternetConnection(navigator.onLine);
+    };
+
+    window.addEventListener("online", handleConnectionChange);
+    window.addEventListener("offline", handleConnectionChange);
+
+    return () => {
+      window.removeEventListener("online", handleConnectionChange);
+      window.removeEventListener("offline", handleConnectionChange);
+    };
+  }, []);
+  
   const handleFromDateChange = (event) => {
     setFromDate(event.target.value);
   };
@@ -33,7 +48,9 @@ function DateTimeRangeInput(props) {
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <br/>
         <label htmlFor="from-date-input">From Date:</label>
+        <br/>
         <input 
           type="datetime-local" 
           id="from-date-input" 
@@ -41,7 +58,9 @@ function DateTimeRangeInput(props) {
           value={fromDate} 
           onChange={handleFromDateChange} 
         />
+        <br/><br/>
         <label htmlFor="to-date-input">To Date:</label>
+        <br/>
         <input 
           type="datetime-local" 
           id="to-date-input" 
@@ -49,7 +68,8 @@ function DateTimeRangeInput(props) {
           value={toDate} 
           onChange={handleToDateChange} 
         />
-        <button type="submit">Submit</button>
+        <br/><br/>
+        <button type="submit" disabled={!hasInternetConnection}>Submit</button>
       </form>
     </div>
   );
