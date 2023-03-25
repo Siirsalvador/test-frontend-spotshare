@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/DateInput.css'
+import { analytics } from './firebase';
+import {logEvent} from 'firebase/analytics';
 
 function DateTimeRangeInput(props) {
   const [fromDate, setFromDate] = useState('');
@@ -22,14 +24,17 @@ function DateTimeRangeInput(props) {
   
   const handleFromDateChange = (event) => {
     setFromDate(event.target.value);
+    logEvent(analytics, "From date changed");
   };
 
   const handleToDateChange = (event) => {
     setToDate(event.target.value);
+    logEvent(analytics, "To date changed");
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // logEvent(analytics, "Submitted query");
     fetch('https://spot-share.herokuapp.com/query', {
       method: 'POST',
       headers: {

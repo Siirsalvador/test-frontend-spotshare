@@ -1,9 +1,8 @@
 import logo from './logo.svg';
 import './styles/App.css';
 import React, {useState, useEffect} from 'react';
-import DateInput from './components/DateInput';
+import DateInputComponent from './components/DateInputComponent';
 import ListComponent from './components/ListComponent';
-
 
 function App() {
   const [bundle, setToBundle] = useState({});
@@ -19,7 +18,7 @@ function App() {
   }, []);
 
   const handleDataReceived = (fromDate, toDate, data) => {
-    setToBundle({data:data, fromDate:fromDate, toDate:toDate})
+    setToBundle({data:data, fromDate:fromDate, toDate:toDate});
   };
 
   return (
@@ -28,7 +27,7 @@ function App() {
       <img src={logo} className="App-logo" alt="logo" />
       <h1>SpotShare - Beta</h1>
       <p>Enter a time range to search Ade's Spotify play history (since - 24th Mar 2023)</p>
-      <DateInput onDataReceived={handleDataReceived}/>
+      <DateInputComponent onDataReceived={handleDataReceived}/>
       <ListComponent data = {bundle} onDataReceived={handleDataReceived}/>
     </div>
   );
