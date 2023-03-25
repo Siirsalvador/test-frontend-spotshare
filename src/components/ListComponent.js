@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/ListComponent.css';
+import moment from 'moment';
 
 function ListComponent(props) {
     const [bundle, setBundle] = useState({data:[], fromDate:'', toDate:''});
@@ -43,18 +44,18 @@ function ListComponent(props) {
             {bundle.data.length > 0 ? (
                 <div>
                 <h1>Tracks:</h1>
-                <ol>
+                <ul>
                     {bundle.data.map((item, index) => (
                     <li key={index}>
                         <ul>
-                            <li>Played at: <span>{item.played_at}</span></li>
+                            <li>Played at: <span>{moment(item.played_at).format("dddd, MMMM Do, h:mm a")}</span></li>
                             <li>Track name: <span><a href={item.track_link} target="_blank" rel="noopener noreferrer">{item.track_name}</a></span></li>
                             <li>Artist: <span>{item.track_artist}</span></li>
                             <li>Album name: <span>{item.track_album_name}</span></li>
                         </ul>       
                     </li>
                     ))}
-                </ol>
+                </ul>
                 <span><button onClick={handleClick} disabled={bundle.data.length < 15}>Next Page</button></span>
                 </div>
             ) : (
