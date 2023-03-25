@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/ListComponent.css';
 import moment from 'moment';
+import { analytics } from './firebase';
+import {logEvent} from 'firebase/analytics';
 
 function ListComponent(props) {
     const [bundle, setBundle] = useState({data:[], fromDate:'', toDate:''});
@@ -13,6 +15,7 @@ function ListComponent(props) {
     }, [props.data]);
 
     useEffect(() => {
+    logEvent(analytics, "List updated");
     setBundle(bundle);
     handleDataReceived(bundle);
     }, [bundle]);
@@ -37,7 +40,7 @@ function ListComponent(props) {
       };
 
       const handleClick = (event) => {
-        // prevent the default behavior of the link
+        logEvent(analytics, "Next page click");
         event.preventDefault();
         fetch('https://spot-share.herokuapp.com/query', {
             method: 'POST',

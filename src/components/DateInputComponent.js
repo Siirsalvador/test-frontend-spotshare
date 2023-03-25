@@ -24,17 +24,15 @@ function DateTimeRangeInput(props) {
   
   const handleFromDateChange = (event) => {
     setFromDate(event.target.value);
-    logEvent(analytics, "From date changed");
   };
 
   const handleToDateChange = (event) => {
     setToDate(event.target.value);
-    logEvent(analytics, "To date changed");
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // logEvent(analytics, "Submitted query");
+    logEvent(analytics, "Submitted query");
     fetch('https://spot-share.herokuapp.com/query', {
       method: 'POST',
       headers: {
@@ -46,7 +44,10 @@ function DateTimeRangeInput(props) {
       body: JSON.stringify({ fromDate:fromDate, toDate:toDate })
     })
       .then(response => response.json())
-      .then(data => props.onDataReceived(fromDate, toDate,data))
+      .then(data => {
+        props.onDataReceived(fromDate, toDate, data);
+        logEvent(analytics, "Data retrieved");
+        })
       .catch(error => console.error(error));
   };
 
