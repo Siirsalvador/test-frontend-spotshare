@@ -7,6 +7,7 @@ function DateTimeRangeInput(props) {
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
   const [hasInternetConnection, setHasInternetConnection] = useState(true);
+  const [minToDate, setMinToDate] = useState('');
 
   useEffect(() => {
     const handleConnectionChange = () => {
@@ -23,7 +24,9 @@ function DateTimeRangeInput(props) {
   }, []);
   
   const handleFromDateChange = (event) => {
-    setFromDate(event.target.value);
+    const newFromDate = event.target.value;
+    setFromDate(newFromDate);
+    setMinToDate(newFromDate);
   };
 
   const handleToDateChange = (event) => {
@@ -63,6 +66,7 @@ function DateTimeRangeInput(props) {
           name="from-date-input" 
           value={fromDate} 
           onChange={handleFromDateChange} 
+          min="2023-03-24T00:00:00"
         />
         <br/><br/>
         <label htmlFor="to-date-input">To Date:</label>
@@ -72,7 +76,8 @@ function DateTimeRangeInput(props) {
           id="to-date-input" 
           name="to-date-input" 
           value={toDate} 
-          onChange={handleToDateChange} 
+          onChange={handleToDateChange}
+          min={minToDate}
         />
         <br/><br/>
         <button type="submit" disabled={!hasInternetConnection}>Submit</button>
