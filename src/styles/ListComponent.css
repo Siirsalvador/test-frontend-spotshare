@@ -1,4 +1,5 @@
 .container {
+  margin-top: 1.2rem;
   display: flex;
   justify-content: center;
 }
@@ -7,9 +8,9 @@ h1 {
   text-align: center;
 }
 
-ul {
+ul:not(.pagination.mb-0) {
   list-style-type: none;
-  margin-bottom: 25px;
+  margin-bottom: 0.8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,9 +18,17 @@ ul {
   padding: 0;
 }
 
+ul.pagination.mb-0 {
+  justify-content: center;
+}
+
+nav li {
+  margin-left: 0.3rem;
+  margin-bottom: 1.5rem;
+}
+
 li {
   align-items: center;
-  margin-bottom: 5px;
 }
 
 li span.track-name {
@@ -33,13 +42,9 @@ li a {
 }
 
 li strong {
-  margin-right: 8px;
+  margin-right: 0.75rem;
 }
 
 li span {
   font-weight: bold;
-}
-
-div {
-  padding-bottom: 20px;
 }
