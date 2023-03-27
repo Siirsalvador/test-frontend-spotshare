@@ -1,26 +1,32 @@
 import "../styles/DateInput.css";
 import React, { useState } from "react";
-import { MDBBtn, MDBSpinner } from "mdb-react-ui-kit";
+import moment from "moment";
 import { analytics } from "./firebase";
 import { logEvent } from "firebase/analytics";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { CircularProgress, Stack, Button } from "@mui/material";
 
 function DateTimeRangeInput(props) {
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
-  const [minToDate, setMinToDate] = useState("");
+  const [fromDate, setFromDate] = useState(moment("2023-03-24T00:00:00"));
+  const [toDate, setToDate] = useState(moment.utc());
+  const [minToDate, setMinToDate] = useState(fromDate);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { isOnline, onDataReceived, componentRef } = props;
+  const { isOnline, onDataReceived } = props;
 
-  const handleFromDateChange = (event) => {
-    const newFromDate = event.target.value;
+  const handleFromDateChange = (value) => {
+    const newFromDate = value;
     setFromDate(newFromDate);
     setMinToDate(newFromDate);
+    console.log(value);
   };
 
-  const handleToDateChange = (event) => {
-    const newToDate = event.target.value;
+  const handleToDateChange = (value) => {
+    const newToDate = value;
     setToDate(newToDate);
+    console.log(value);
   };
 
   const handleSubmit = (event) => {
@@ -44,52 +50,41 @@ function DateTimeRangeInput(props) {
         const page = 1;
         onDataReceived(fromDate, toDate, data, page);
         setIsLoading(false);
-        window.scrollTo({
-          top: componentRef.current.offsetTop,
-          behavior: "smooth",
-        });
       })
       .catch((error) => console.error(error));
   };
 
   return (
-    <div id="dateInputComponent">
-      <form onSubmit={handleSubmit}>
-        <br />
-        <label htmlFor="from-date-input">From Date</label>
-        <br />
-        <input
-          type="datetime-local"
-          id="from-date-input"
-          name="from-date-input"
-          value={fromDate}
-          onChange={handleFromDateChange}
-          min="2023-03-24T00:00:00"
-        />
-        <br />
-        <br />
-        <label htmlFor="to-date-input">To Date</label>
-        <br />
-        <input
-          type="datetime-local"
-          id="to-date-input"
-          name="to-date-input"
-          value={toDate}
-          onChange={handleToDateChange}
-          min={minToDate}
-        />
-        <br />
-        <br />
-        {isLoading ? (
-          <MDBSpinner grow color="primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </MDBSpinner>
-        ) : (
-          <MDBBtn rounded className="mx-2" type="submit" disabled={!isOnline}>
-            Submit
-          </MDBBtn>
-        )}
-      </form>
+    <div>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <form onSubmit={handleSubmit}>
+          <Stack alignItems="center" fullwidth sx={{ mb: "2rem" }}>
+            <br />
+            <DateTimePicker
+              fullwidth={true}
+              label="From Date"
+              value={fromDate}
+              onChange={(newValue) => handleFromDateChange(newValue)}
+              minDateTime={moment("2023-03-24T00:00:00")}
+            />
+            <br />
+            <DateTimePicker
+              label="To Date"
+              value={toDate}
+              onChange={(newValue) => handleToDateChange(newValue)}
+              minDateTime={moment(minToDate)}
+            />
+            <br />
+            {isLoading ? (
+              <CircularProgress />
+            ) : (
+              <Button variant="contained" type="submit" disabled={!isOnline}>
+                Submit
+              </Button>
+            )}
+          </Stack>
+        </form>
+      </LocalizationProvider>
     </div>
   );
 }

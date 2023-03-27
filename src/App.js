@@ -2,6 +2,9 @@ import "./styles/App.css";
 import logo from "./logo.svg";
 import React, { useState, useEffect, useRef } from "react";
 import DateInputComponent from "./components/DateInputComponent";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
 import ListComponent from "./components/ListComponent";
 
 function App() {
@@ -33,25 +36,34 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {!online ? (
-        <div className="sticky-nav red">
-          <p className="header">No internet connection</p>
-        </div>
-      ) : (
-        <div className="sticky-nav">
-          <p className="header">
-            Enter a time range to search Ade's Spotify play history (data stored
-            since - 24th Mar 2023)
-          </p>
-        </div>
-      )}
-      {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      <div id="mainAppContainer">
-        <h1>SpotShare - Beta</h1>
+    <Container maxWidth={false}>
+      <Stack
+        direction="column"
+        justifyContent="space-evenly"
+        alignItems="center"
+        sx={{mb:"2rem"}}>
+        {!online ? (
+          <div className="sticky-nav red">
+            <Typography align="center">No internet connection</Typography>
+          </div>
+        ) : (
+          <div className="sticky-nav">
+            <Typography align="center" variant="body2" gutterBottom>
+              Enter a time range to search Ade's Spotify play history<br/>(data
+              stored since - 24th Mar 2023)
+            </Typography>
+          </div>
+        )}
+        <img src={logo} className="App-logo" alt="logo" />
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{ mt: "2rem" }}
+        >
+          SpotShare - Beta
+        </Typography>
         <DateInputComponent
           isOnline={online}
-          componentRef={componentRef}
           onDataReceived={handleDataReceived}
         />
         <ListComponent
@@ -61,8 +73,8 @@ function App() {
           componentRef={componentRef}
           onDataReceived={handleDataReceived}
         />
-      </div>
-    </div>
+      </Stack>
+    </Container>
   );
 }
 

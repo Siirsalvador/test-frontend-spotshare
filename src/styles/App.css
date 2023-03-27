@@ -36,23 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-p.header {
-  font-size: 0.6rem;
-  padding-top: 0.7rem;
-  text-align: center;
-}
-sticky-nav {
-  position: relative;
-  top: 0;
-  z-index: 1;
-}
-
-.red {
-  position: sticky;
-  background-color: #ff4d4d;
-}
-
-#mainAppContainer {
-  margin-top: 5rem;
-}
