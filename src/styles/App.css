@@ -42,9 +42,6 @@ p.header {
   padding-top: 0.7rem;
   text-align: center;
 }
-body {
-  font-family: "Roboto", sans-serif;
-}
 sticky-nav {
   position: relative;
   top: 0;
