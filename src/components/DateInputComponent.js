@@ -1,4 +1,3 @@
-import "../styles/DateInput.css";
 import React, { useState } from "react";
 import moment from "moment";
 import { analytics } from "./firebase";
@@ -10,7 +9,7 @@ import { CircularProgress, Stack, Button } from "@mui/material";
 
 function DateTimeRangeInput(props) {
   const [fromDate, setFromDate] = useState(moment("2023-03-24T00:00:00"));
-  const [toDate, setToDate] = useState(moment.utc());
+  const [toDate, setToDate] = useState(moment("2023-03-24T12:00:00"));
   const [minToDate, setMinToDate] = useState(fromDate);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,14 +25,13 @@ function DateTimeRangeInput(props) {
   const handleToDateChange = (value) => {
     const newToDate = value;
     setToDate(newToDate);
-    console.log(value);
   };
 
   const handleSubmit = (event) => {
     logEvent(analytics, "Submitted query");
     setIsLoading(true);
     event.preventDefault();
-    fetch("https://spot-share.herokuapp.com/query", {
+    fetch("/query", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,10 +40,11 @@ function DateTimeRangeInput(props) {
         "Access-Control-Allow-Headers":
           "Content-Type, Authorization, X-Requested-With",
       },
-      body: JSON.stringify({ fromDate: fromDate, toDate: toDate }),
+      body: JSON.stringify({ fromDate: fromDate.toISOString(), toDate: toDate.toISOString() }),
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         logEvent(analytics, "Data retrieved");
         const page = 1;
         onDataReceived(fromDate, toDate, data, page);
@@ -58,14 +57,14 @@ function DateTimeRangeInput(props) {
     <div>
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <form onSubmit={handleSubmit}>
-          <Stack alignItems="center" fullwidth sx={{ mb: "2rem" }}>
+          <Stack alignItems="center" ullwidth={"true"} sx={{ mb: "2rem" }}>
             <br />
             <DateTimePicker
-              fullwidth={true}
+              fullwidth={"true"}
               label="From Date"
               value={fromDate}
               onChange={(newValue) => handleFromDateChange(newValue)}
-              minDateTime={moment("2023-03-24T00:00:00")}
+              minDateTime={fromDate}
             />
             <br />
             <DateTimePicker
@@ -78,7 +77,7 @@ function DateTimeRangeInput(props) {
             {isLoading ? (
               <CircularProgress />
             ) : (
-              <Button variant="contained" type="submit" disabled={!isOnline}>
+              <Button style ={{backgroundColor:"#1976d2"}} variant="contained" type="submit" disabled={!isOnline}>
                 Submit
               </Button>
             )}

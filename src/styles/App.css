@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.sticky-nav {
+  position: relative;
+  top: 0;
+  z-index: 1;
+}
+
+.red {
+  position: sticky;
+  background-color: #ffbdbd;
+}
